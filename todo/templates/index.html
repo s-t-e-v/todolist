@@ -3,6 +3,17 @@
 <body>
     <h1>To-do App</h1>
 
-    <p>Hello World!</p>
+    <a href="deletion/">Deletion</a>
+
+    <form action="#" method="post">
+        <input type="text" placeholder="New task..." id="taskentry" name="taskentry">
+        <input type="submit" value="+"><br>
+        {% for x in todo %}
+        <input type="checkbox" id="{{x.id}}" name="{{x.id}}" value="{{x.id}}" {% if x.checkstate == True %} checked {% endif %}> <input type="text" value="{{x.taskname}}"><br>
+        {% endfor %}
+        </table>
+
+        
+    </form>
 </body>
 </html>
