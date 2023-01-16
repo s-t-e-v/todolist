@@ -1,0 +1,34 @@
+/* Normal mode */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+
+    width: 320px; /* smartphone width */
+    border: solid black 1px;
+}
+
+header {
+    text-align: right;
+    width: 320px; /* smartphone width */
+    height: 1.2em;
+    border: solid black 1px;
+}
+
+
+/* Deletion mode */
+.del {
+    text-decoration: none;
+    font-size: x-large;
+}
