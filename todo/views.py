@@ -16,8 +16,6 @@ def index(request):
 def add(request):
     """Add an entry to the Todo database"""
 
-    # print("Hello !")
-
     if request.method == 'POST':
         taskname = request.POST.get("taskname")
 
@@ -25,15 +23,13 @@ def add(request):
 
         todo = Todo.objects.create(taskname=taskname, checkstate=False)
 
-        # print(todo)
-
         return JsonResponse({'sucess': 'Todo Created'})
     else:
         return JsonResponse({'error': 'Invalid request method'})
 
 
 def todolist(request):
-    """Display the todo list with the current todo model"""
+    """Return the current todo model"""
 
     if request.method == 'GET':
         todo = Todo.objects.all()
@@ -44,9 +40,6 @@ def todolist(request):
              } for t in todo]
 
         return JsonResponse(todo_list, safe=False)
-
-
-
 
 
 def update_entry(request):
