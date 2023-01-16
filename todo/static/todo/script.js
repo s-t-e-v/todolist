@@ -40,7 +40,7 @@ async function add_request() {
     }
 
     // Refresh the todolist
-    display_todolist();
+    todolist();
 }
 
 // retrieve the cookie to give it to Django server (because of CSRFToken activated)
