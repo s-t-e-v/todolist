@@ -8,7 +8,7 @@ from .models import Todo
 def index(request):
     """Load the App main view"""
     todo = Todo.objects.all().values()
-    template = loader.get_template('index.html')
+    template = loader.get_template('todo/index.html')
     context = {
         'todo': todo,
     }

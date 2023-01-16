@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Todo App</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href={% static "todo/style.css" %}>
+    <script src={% static "todo/script.js" %}></script>
+</head>
+<body>
+    <main>
+        <h1>To-do App</h1>
+
+        <a href="deletion/">Deletion</a>
+
+        <form action="#" method="post">
+            <input type="text" placeholder="New task..." id="taskentry" name="taskentry">
+            <input type="submit" value="+"><br>
+            {% for x in todo %}
+            <input type="checkbox" id="{{x.id}}" name="{{x.id}}" value="{{x.id}}" {% if x.checkstate == True %} checked {% endif %}> <input type="text" value="{{x.taskname}}"><br>
+            {% endfor %}
+        </form>
+    </main>
+    
+</body>
+</html>

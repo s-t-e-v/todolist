@@ -3,5 +3,4 @@ from . import views
 
 urlpatterns = [
     path('', views.index,name='index'),
-    path('deletion/',views.deletion, name='deletion')
 ]
