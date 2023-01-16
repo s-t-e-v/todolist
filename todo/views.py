@@ -1,5 +1,5 @@
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Todo
 
 # Create your views here.
@@ -16,7 +16,26 @@ def index(request):
 
 def add(request):
     """Add an entry to the Todo database"""
-    pass
+
+    print("Hello !")
+
+    if request.method == 'POST':
+        taskname = request.POST.get("taskname")
+
+        print(taskname)
+
+        todo = Todo.objects.create(taskname=taskname, checkstate=False)
+
+        print(todo)
+        
+        return JsonResponse({'sucess': 'Todo Created'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
+
+
+
+
+
 
 def update_entry(request):
     """Update the Todo database"""
@@ -29,12 +48,7 @@ def check_update(request):
 def deletion_mode(request):
     """Switch to deletion mode.
         Also swtich back to normal mode"""
-    todo = Todo.objects.all().values()
-    template = loader.get_template('deletion.html')
-    context = {
-        'todo': todo,
-    }
-    return HttpResponse(template.render(context, request))
+    pass
 
 ## deletion mode
 def delete_entry(request):
