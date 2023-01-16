@@ -10,16 +10,19 @@
     <script src={% static "todo/script.js" %}></script>
 </head>
 <body>
+    <header>
+        <a hidden href="#">Undo</a>
+        <a href="">Deletion</a>
+
+    </header>
     <main>
         <h1>To-do App</h1>
 
-        <a href="deletion/">Deletion</a>
-
         <form action="#" method="post">
-            <input type="text" placeholder="New task..." id="taskentry" name="taskentry">
-            <input type="submit" value="+"><br>
+            <input type="text" placeholder="New task..." id="taskentry" name="taskentry" {% if 0 %} disabled="disabled" {% endif %}>
+            <input type="submit" value={% if 0 %}"+"{% else %}"-"{% endif %}><br>
             {% for x in todo %}
-            <input type="checkbox" id="{{x.id}}" name="{{x.id}}" value="{{x.id}}" {% if x.checkstate == True %} checked {% endif %}> <input type="text" value="{{x.taskname}}"><br>
+            {% if 0 %}<input type="checkbox" id="{{x.id}}" name="{{x.id}}" value="{{x.id}}" {% if x.checkstate == True %} checked {% endif %}>{% endif %} <input type="text" value="{{x.taskname}}">   <a class="del" hidden href="#">-</a><br>
             {% endfor %}
         </form>
     </main>
