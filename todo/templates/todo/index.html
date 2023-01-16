@@ -19,7 +19,7 @@
         <h1>To-do App</h1>
 
         <form action="#" method="post">
-            <input type="text" placeholder="New task..." id="taskentry" name="taskentry" {% if not 1 %} disabled="disabled" {% endif %}>
+            <input type="text" onkeydown="if (event.keyCode == 13) add_request()" placeholder="New task..." id="taskentry" name="taskentry" {% if not 1 %} disabled="disabled" {% endif %}>
             <input type="button" onclick="add_request()" value={% if 1 %}"+"{% else %}"-"{% endif %}><br>
             {% for x in todo %}
             {% if 1 %}<input type="checkbox" id="{{x.id}}" name="{{x.id}}" value="{{x.id}}" {% if x.checkstate == True %} checked {% endif %}>{% endif %} <input type="text" value="{{x.taskname}}">   <a class="del" hidden href="#">-</a><br>
