@@ -1,4 +1,6 @@
 async function add_request() {
+    /* This function request the server to add a new task to the todo model*/
+
     // We retrieve the value in the entry bar
     let taskname = document.getElementById("taskentry").value;
 
@@ -49,12 +51,12 @@ function getCookie(name) {
 }
 
 
-// displays the todo list in normal mode
-async function display_todolist() {
+// Update todo list in normal mode
+async function todolist() {
     try {
         console.log('oh #$+%! Here we go again')
         // Make a GET request to the server to retrieve the updated list of tasks
-        const response = await fetch("display_todolist/", { method: "GET"});
+        const response = await fetch("todolist/", { method: "GET"});
         
         console.log(response)
         const data = await response.json();

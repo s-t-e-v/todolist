@@ -9,7 +9,7 @@
     <link rel="stylesheet" href={% static "todo/style.css" %}>
     <script src={% static "todo/script.js" %}></script>
 </head>
-<body onload="display_todolist()">
+<body>
     <header>
         <a hidden href="#">Undo</a>
         <a href="">Deletion</a>
@@ -23,7 +23,7 @@
             <input type="button" onclick="add_request()" value={% if 1 %}"+"{% else %}"-"{% endif %}><br>
             <div id="task-list">
                 {% for x in todo %}
-                <input type="checkbox" id="{{x.id}}" name="{{x.id}}" value="{{x.id}}" {% if x.checkstate == True %} checked {% endif %}> <input type="text" value="{{x.taskname}}"><br>
+                <input type="checkbox" id="{{x.id}}" name="{{x.id}}" value="{{x.id}}" {% if x.checkstate == True %} checked {% endif %}><input type="text" value="{{x.taskname}}"><br>
                 {% endfor %}
             </div>
         </form>

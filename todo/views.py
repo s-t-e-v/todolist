@@ -32,7 +32,7 @@ def add(request):
         return JsonResponse({'error': 'Invalid request method'})
 
 
-def display_todolist(request):
+def todolist(request):
     """Display the todo list with the current todo model"""
 
     if request.method == 'GET':
