@@ -22,9 +22,48 @@ main {
 header {
     text-align: right;
     width: 320px; /* smartphone width */
-    height: 1.2em;
+    height: 50px;
     border: solid black 1px;
 }
+
+/* --- Mode switch --- */
+
+/* Hide the default checkbox */
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+/* Create a custom checkbox */
+.custom-checkbox {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border: black solid 1px;
+}
+
+/* Create the checkmark */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    background-image: url("images/trash-off.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+}
+
+/* Change the checkmark icon when the checkbox is checked */
+input[type="checkbox"]:checked + .checkmark {
+    background-image: url("images/trash-on.svg");
+    background-size: contain;
+    background-position: center;
+}
+
 
 
 /* Deletion mode */
@@ -32,3 +71,4 @@ header {
     text-decoration: none;
     font-size: x-large;
 }
+

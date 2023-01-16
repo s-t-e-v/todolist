@@ -96,4 +96,16 @@ async function todolist() {
     }
 
 }
-  
+
+function modeswitch() {
+    
+    let mode_deletion = document.getElementById("switch").checked;
+
+    if (mode_deletion) {
+        console.log("Deletion mode")
+    }
+    else {
+        console.log("Normal mode")
+    }
+
+}
