@@ -1,5 +1,6 @@
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 from .models import Todo
 
 # Create your views here.
@@ -7,17 +8,15 @@ from .models import Todo
 ## normal mode
 def index(request):
     """Load the App main view"""
-    todo = Todo.objects.all().values()
-    template = loader.get_template('todo/index.html')
-    context = {
-        'todo': todo,
-    }
-    return HttpResponse(template.render(context, request))
+
+    todo = Todo.objects.all()
+    return render(request, 'todo/index.html', {'todo': todo})
+
 
 def add(request):
     """Add an entry to the Todo database"""
 
-    print("Hello !")
+    # print("Hello !")
 
     if request.method == 'POST':
         taskname = request.POST.get("taskname")
@@ -26,12 +25,25 @@ def add(request):
 
         todo = Todo.objects.create(taskname=taskname, checkstate=False)
 
-        print(todo)
-        
+        # print(todo)
+
         return JsonResponse({'sucess': 'Todo Created'})
     else:
         return JsonResponse({'error': 'Invalid request method'})
 
+
+def display_todolist(request):
+    """Display the todo list with the current todo model"""
+
+    if request.method == 'GET':
+        todo = Todo.objects.all()
+        todo_list = [
+            {'id': t.id,
+             'taskname': t.taskname,
+             'checkstate': t.checkstate,
+             } for t in todo]
+
+        return JsonResponse(todo_list, safe=False)
 
 
 

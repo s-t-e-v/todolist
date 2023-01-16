@@ -36,6 +36,9 @@ async function add_request() {
         console.log('mdr you suck')
         console.error(err);
     }
+
+    // Refresh the todolist
+    display_todolist();
 }
 
 // retrieve the cookie to give it to Django server (because of CSRFToken activated)
@@ -43,5 +46,52 @@ function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
+// displays the todo list in normal mode
+async function display_todolist() {
+    try {
+        console.log('oh #$+%! Here we go again')
+        // Make a GET request to the server to retrieve the updated list of tasks
+        const response = await fetch("display_todolist/", { method: "GET"});
+        
+        console.log(response)
+        const data = await response.json();
+
+        // Clear the current list of tasks
+        const taskList = document.getElementById("task-list");
+        taskList.innerHTML = "";
+
+         // Iterate through the updated list of tasks and create new HTML elements for each task
+         data.forEach(task => {
+            // Checkbox
+            const taskCheckbox = document.createElement("input");
+            taskCheckbox.type = "checkbox";
+            taskCheckbox.id = task.id;
+            taskCheckbox.name = task.id;
+            taskCheckbox.value = task.id;
+            taskCheckbox.checked = task.checkstate;
+
+            // Taskname
+            const taskName = document.createElement("input");
+            taskName.type = "text";
+            taskName.value = task.taskname;
+
+            // br
+            const br = document.createElement("br");
+
+            // Task element appending
+            taskList.appendChild(taskCheckbox);
+            taskList.appendChild(taskName);
+            taskList.appendChild(br);
+        });
+
+
+    } catch(err) {
+        console.error(err);
+        alert("An error occurred while retrieving the to-do list. Please try again later.");
+    }
+
 }
   
