@@ -22,7 +22,7 @@ main {
 header {
     text-align: right;
     width: 320px; /* smartphone width */
-    height: 50px;
+    height: 36px;
     border: solid black 1px;
 }
 
@@ -66,9 +66,25 @@ input[type="checkbox"]:checked + .checkmark {
 
 
 
-/* Deletion mode */
+/* --- Deletion mode --- */
 .del {
     text-decoration: none;
     font-size: x-large;
 }
 
+.undo {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+  
+.undo_icon {
+    background-image: url("images/undo.svg");
+    background-size: contain;
+    background-position: center;
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    border: red solid 1px;
+
+}

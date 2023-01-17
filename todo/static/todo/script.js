@@ -65,12 +65,17 @@ async function todolist() {
         const taskList = document.getElementById("task-list");
         taskList.innerHTML = "";
 
+        // Get the current display mode
+        let mode_deletion = document.getElementById("switch").checked;
+
+
          // Iterate through the updated list of tasks and create new HTML elements for each task
          data.forEach(task => {
             // Checkbox
             const taskCheckbox = document.createElement("input");
             taskCheckbox.type = "checkbox";
             taskCheckbox.id = task.id;
+            taskCheckbox.className = "todocheck";
             taskCheckbox.name = task.id;
             taskCheckbox.value = task.id;
             taskCheckbox.checked = task.checkstate;
@@ -80,12 +85,29 @@ async function todolist() {
             taskName.type = "text";
             taskName.value = task.taskname;
 
+            // Del buttons
+            const del_buttons = document.createElement("a");
+            del_buttons.className = "del";
+
+            if (mode_deletion) {
+                del_buttons.hidden = false;
+            }
+            else {
+                del_buttons.hidden = true;
+            }
+
+            del_buttons.href = "#";
+            del_buttons.innerHTML = "-";
+
+
             // br
             const br = document.createElement("br");
 
             // Task element appending
             taskList.appendChild(taskCheckbox);
             taskList.appendChild(taskName);
+            taskList.appendChild (document.createTextNode ("  "));
+            taskList.appendChild(del_buttons);
             taskList.appendChild(br);
         });
 
@@ -103,9 +125,57 @@ function modeswitch() {
 
     if (mode_deletion) {
         console.log("Deletion mode")
+        // taskentry
+        document.getElementById("taskentry").disabled = true;
+        // Big button
+        document.getElementById("big_button").value = "-";
+
+        // del buttons
+        del_buttons = document.getElementsByClassName("del");
+
+        Array.from(del_buttons).forEach(function(d) {
+
+            d.hidden = false
+        });
+
+         // todo checkboxes
+         todocheck = document.getElementsByClassName("todocheck");
+
+         Array.from(todocheck).forEach( function(t){
+ 
+             t.hidden = true;
+         });
+
+         // Undo button
+         document.getElementById("undo").hidden = false;
+
+
     }
     else {
         console.log("Normal mode")
+        // taskentry
+        document.getElementById("taskentry").disabled = false;
+        // Big button
+        document.getElementById("big_button").value = "+";
+
+        // del buttons
+        del_buttons = document.getElementsByClassName("del");
+
+        Array.from(del_buttons).forEach(function(d) {
+            
+            d.hidden = true
+        });
+
+        // todo checkboxes
+        todocheck = document.getElementsByClassName("todocheck");
+
+        Array.from(todocheck).forEach( function(t){
+
+            t.hidden = false;
+        });
+
+        // Undo button
+        document.getElementById("undo").hidden = true;
     }
 
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="7.8892212mm"
+   height="8.3749981mm"
+   viewBox="0 0 7.8892211 8.3749982"
+   version="1.1"
+   id="svg336"
+   inkscape:version="1.2.1 (1:1.2.1+202210291244+9c6d41e410)"
+   sodipodi:docname="todolist_design.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview338"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.72319499"
+     inkscape:cx="468.75325"
+     inkscape:cy="470.82737"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg336"
+     showguides="true"><inkscape:grid
+       type="xygrid"
+       id="grid1762" /><sodipodi:guide
+       position="-67.940538,-240.35027"
+       orientation="1,0"
+       id="guide1811"
+       inkscape:locked="false" /></sodipodi:namedview><defs
+     id="defs333" /><g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="deletion"
+     transform="translate(-166.19317,-13.32033)"><g
+       inkscape:groupmode="layer"
+       id="layer13"
+       inkscape:label="undo"><path
+         d="M 170.57373,14.178744 V 13.32033 l -2.98449,1.670756 2.98445,1.670795 v -0.917766 c 1.09459,0.197762 1.88711,1.100235 1.88711,2.18092 0,1.225017 -1.04023,2.221647 -2.32296,2.221647 -1.28273,0 -2.32461,-0.99663 -2.32461,-2.221647 0,-0.32208 0.0712,-0.632391 0.20995,-0.922257 l -1.47432,-0.64389 c -0.23615,0.493361 -0.3557,1.020326 -0.3557,1.566147 0,2.07894 1.77112,3.770294 3.94801,3.770294 2.17688,0 3.94123,-1.691354 3.94123,-3.770294 0,-1.935653 -1.5222,-3.535016 -3.50867,-3.746291 z"
+         id="path2813"
+         style="stroke-width:0.0396176"
+         inkscape:export-filename="undo.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" /></g></g></svg>
