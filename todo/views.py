@@ -50,10 +50,6 @@ def check_update(request):
     """Update the checked/unchecked state of the Todo database"""
     pass
 
-def deletion_mode(request):
-    """Switch to deletion mode.
-        Also swtich back to normal mode"""
-    pass
 
 ## deletion mode
 def delete_entry(request):
