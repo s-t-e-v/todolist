@@ -9,14 +9,14 @@
     <link rel="stylesheet" href={% static "todo/style.css" %}>
     <script src={% static "todo/script.js" %}></script>
 </head>
-<body onload="document.getElementById('switch').checked = false"><!-- We set the deletion button to off state -->
+<body>
     <header>
         <button hidden class="undo" id="undo">
             <i class="undo_icon"></i>
           </button>
           
         <label class="custom-checkbox">
-            <input type="checkbox" onclick="modeswitch()" id="switch">
+            <input type="checkbox" id="switch">
             <span class="checkmark"></span>
         </label>         
     </header>
@@ -24,11 +24,12 @@
         <h1>To-do App</h1>
 
         <form action="#" method="post">
-            <input type="text" onkeydown="if (event.keyCode == 13) add_request()" placeholder="New task..." id="taskentry" name="taskentry" {% if not 1 %} disabled="disabled" {% endif %}>
-            <input type="button" onclick="add_request()" value="+" id="big_button"><br>
+            <input type="text" placeholder="New task..." id="taskentry" name="taskentry" {% if not 1 %} disabled="disabled" {% endif %}>
+            <input type="button" value="+" id="big_button"><br>
             <div id="task-list">
                 {% for x in todo %}
-                <input type="checkbox" id="{{x.id}}" class="todocheck" name="{{x.id}}" value="{{x.id}}" {% if x.checkstate == True %} checked {% endif %}><input type="text" value="{{x.taskname}}">  <a class="del" hidden href="#">-</a><br>
+                <input type="checkbox" id="checkbox_{{x.id}}" class="todocheck"  {% if x.checkstate == True %} checked {% endif %}>
+                <input type="text" id="task_{{x.id}}" value="{{x.taskname}}">  <a class="del" hidden href="#">-</a><br>
                 {% endfor %}
             </div>
         </form>

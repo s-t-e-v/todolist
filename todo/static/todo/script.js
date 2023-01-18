@@ -1,3 +1,68 @@
+// Declare global variables
+
+//...
+
+// Attach event listeners to elements when DOM is fully loaded
+document.addEventListener("DOMContentLoaded", function() {
+
+    //DOM element GET
+    let switchEl = document.getElementById("switch");
+    let textEntry = document.getElementById("taskentry");
+    let bigButton = document.getElementById("big_button");
+    let inputElements = document.querySelectorAll("#task-list input[type=text]");
+
+    // Event listeners
+    if (switchEl) {
+        switchEl.checked = false;
+        switchEl.addEventListener('click', modeswitch);
+    }
+    if (textEntry) {
+        textEntry.addEventListener('keydown', (event) => {
+            if (event.key == 'Enter') {
+                add_request();
+            }
+        });
+    }
+    if (bigButton) {
+        bigButton.addEventListener('click', add_request);
+    }
+    if (inputElements) {
+        var enterPressed = false;
+        document.querySelectorAll("#task-list input[type=text]").forEach(function(el) {
+            var initialValue = el.value;
+            el.addEventListener("focusout", function(event) {
+                if (!enterPressed) {
+                    if(this.value != initialValue) {
+                        console.log("We retrieve the task name from the server & refresh the element");
+                        initialValue = this.value;
+                    }
+                    else {
+                        console.log("Text didn't change, skip request");
+                    }
+                }
+                enterPressed = false;
+            });
+            el.addEventListener("keydown", function(event) {
+                if (event.code == 'Enter') {
+                    if(this.value != initialValue) {
+                        enterPressed = true;
+                        update_entry(this.id);
+                        this.blur();
+                        initialValue = this.value;
+                    }
+                    else{
+                        console.log("Text didn't change after Enter pressed, skip request");
+                    }
+              }
+            });
+        });
+        
+    }
+});
+  
+  
+// Utility functions
+
 async function add_request() {
     /* This function request the server to add a new task to the todo model*/
 
@@ -43,16 +108,17 @@ async function add_request() {
     todolist();
 }
 
-// retrieve the cookie to give it to Django server (because of CSRFToken activated)
 function getCookie(name) {
+    /* retrieve the cookie to give it to Django server (because of CSRFToken activated) */
+
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-
-// Update todo list in normal mode
 async function todolist() {
+    /* Update todo list in normal mode */
+
     try {
         console.log('oh #$+%! Here we go again')
         // Make a GET request to the server to retrieve the updated list of tasks
@@ -74,15 +140,14 @@ async function todolist() {
             // Checkbox
             const taskCheckbox = document.createElement("input");
             taskCheckbox.type = "checkbox";
-            taskCheckbox.id = task.id;
+            taskCheckbox.id = "checkbox_" + task.id;
             taskCheckbox.className = "todocheck";
-            taskCheckbox.name = task.id;
-            taskCheckbox.value = task.id;
             taskCheckbox.checked = task.checkstate;
 
             // Taskname
             const taskName = document.createElement("input");
             taskName.type = "text";
+            taskName.id = "task_" + task.id;
             taskName.value = task.taskname;
 
             // Del buttons
@@ -120,8 +185,9 @@ async function todolist() {
 }
 
 function modeswitch() {
-    
-    let mode_deletion = document.getElementById("switch").checked;
+
+    let mode_deletion = document.getElementById('switch').checked;
+
 
     if (mode_deletion) {
         console.log("Deletion mode")
@@ -177,5 +243,19 @@ function modeswitch() {
         // Undo button
         document.getElementById("undo").hidden = true;
     }
+
+}
+
+async function update_entry(id) {
+    /* This function request the server an update of the databse regarding the frontend change */
+    console.log(id);
+
+    // we retrieve the task input element
+    let task = document.getElementById(id);
+
+    console.log(task);
+
+    // We make a post request
+
 
 }
