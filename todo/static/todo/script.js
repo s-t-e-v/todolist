@@ -11,11 +11,14 @@ document.addEventListener("DOMContentLoaded", function() {
     let bigButton = document.getElementById("big_button");
     let inputElements = document.querySelectorAll("#task-list input[type=text]");
 
+
     // Event listeners
+    // trash button
     if (switchEl) {
         switchEl.checked = false;
         switchEl.addEventListener('click', modeswitch);
     }
+    // text entry bar
     if (textEntry) {
         textEntry.addEventListener('keydown', (event) => {
             if (event.key == 'Enter') {
@@ -23,32 +26,40 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    // Big button
     if (bigButton) {
         bigButton.addEventListener('click', add_request);
     }
+    // Tasks list
     if (inputElements) {
-        var enterPressed = false;
+        var enterPressed = false; // initialization
+
+        // looping over each text input elements
         document.querySelectorAll("#task-list input[type=text]").forEach(function(el) {
-            var initialValue = el.value;
-            el.addEventListener("focusout", function(event) {
-                if (!enterPressed) {
-                    if(this.value != initialValue) {
+            var initialValue = el.value; // task name initial value
+
+            // focus out
+            el.addEventListener("focusout", function() {
+                if (!enterPressed) {// if Enter was not pressed before focus out
+                    if(this.value != initialValue) {// if the text changed
                         console.log("We retrieve the task name from the server & refresh the element");
-                        initialValue = this.value;
+                        initialValue = this.value; // we update
                     }
                     else {
                         console.log("Text didn't change, skip request");
                     }
                 }
-                enterPressed = false;
+                enterPressed = false; // we reinitialize the value
             });
+
+            // keydown
             el.addEventListener("keydown", function(event) {
-                if (event.code == 'Enter') {
-                    if(this.value != initialValue) {
-                        enterPressed = true;
-                        update_entry(this.id);
-                        this.blur();
-                        initialValue = this.value;
+                if (event.code == 'Enter') { //if Enter was pressed
+                    if(this.value != initialValue) { // if the text changed
+                        enterPressed = true; // Enter is pressed
+                        update_entry(this.id); // request the server to update database, then up frontend
+                        this.blur(); // focus out
+                        initialValue = this.value; // we update
                     }
                     else{
                         console.log("Text didn't change after Enter pressed, skip request");
@@ -189,12 +200,17 @@ function modeswitch() {
     let mode_deletion = document.getElementById('switch').checked;
 
 
-    if (mode_deletion) {
+    if (mode_deletion) { // Deletion mode
+
         console.log("Deletion mode")
         // taskentry
         document.getElementById("taskentry").disabled = true;
         // Big button
         document.getElementById("big_button").value = "-";
+
+        // Tasks
+        // getElementByClassName + Array...forEach... disabled = true
+        //...
 
         // del buttons
         del_buttons = document.getElementsByClassName("del");
@@ -217,7 +233,8 @@ function modeswitch() {
 
 
     }
-    else {
+    else { // Normal mode
+
         console.log("Normal mode")
         // taskentry
         document.getElementById("taskentry").disabled = false;
@@ -259,3 +276,5 @@ async function update_entry(id) {
 
 
 }
+
+// get_task()
