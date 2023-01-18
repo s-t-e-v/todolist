@@ -42,7 +42,8 @@ document.addEventListener("DOMContentLoaded", function() {
             el.addEventListener("focusout", function() {
                 if (!enterPressed) {// if Enter was not pressed before focus out
                     if(this.value != initialValue) {// if the text changed
-                        console.log("We retrieve the task name from the server & refresh the element");
+                        console.log("We are retrieving the task name from the server & refresh the element");
+                        get_task(this.id);
                         initialValue = this.value; // we update
                     }
                     else {
@@ -277,4 +278,35 @@ async function update_entry(id) {
 
 }
 
-// get_task()
+async function get_task(id) {
+    // get the task name idenfied by the id & set the value of the html element
+
+    try {
+        console.log('getting task has started');
+        console.log(document.getElementById(id).value);
+
+        let task_id = id.split('_')[1];
+
+        console.log(task_id);
+        console.log(typeof(task_id));
+
+    
+        // Make a GET request to the server to retrieve the task name in the model
+        const response = await fetch(`get_task_name/${task_id}`, {method: "GET"});
+
+        console.log(response);
+        const data = await response.json();
+
+        // We attribute the task name value from the model to the html element
+        if (data) {
+            document.getElementById(id).value = data.taskname;
+        }
+
+        console.log(document.getElementById(id).value);
+
+
+    } catch(err) {
+        console.error(err);
+        alert("An error occurred while retrieving the task name. Please try again later.");
+    }
+}

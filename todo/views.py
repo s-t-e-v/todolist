@@ -46,6 +46,16 @@ def update_entry(request):
     """Update the Todo database"""
     pass
 
+def get_task_name(request, id):
+    """Return the task name identified by id"""
+
+    if request.method == 'GET':
+        task = Todo.objects.get(id=id)
+        data = {'taskname': task.taskname}
+
+        return JsonResponse(data, safe=False)
+    
+
 def check_update(request):
     """Update the checked/unchecked state of the Todo database"""
     pass
