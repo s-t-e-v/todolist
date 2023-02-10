@@ -42,9 +42,20 @@ def todolist(request):
         return JsonResponse(todo_list, safe=False)
 
 
-def update_entry(request):
+def update_entry(request, id):
     """Update the Todo database"""
-    pass
+    
+    if request.method == 'POST':
+        taskname = request.POST.get("taskname")
+
+        task = Todo.objects.get(id=id)
+        task.taskname = taskname
+        task.save()
+
+        return JsonResponse({'sucess': 'Task Name Updated'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
+
 
 def get_task_name(request, id):
     """Return the task name identified by id"""

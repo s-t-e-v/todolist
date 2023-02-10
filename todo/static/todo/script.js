@@ -1,6 +1,6 @@
 // Declare global variables
 
-//...
+todo_reload = false;
 
 // Attach event listeners to elements when DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function() {
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let switchEl = document.getElementById("switch");
     let textEntry = document.getElementById("taskentry");
     let bigButton = document.getElementById("big_button");
-    let inputElements = document.querySelectorAll("#task-list input[type=text]");
+    var inputElements = document.querySelectorAll("#task-list input[type=text]");
 
 
     // Event listeners
@@ -30,6 +30,24 @@ document.addEventListener("DOMContentLoaded", function() {
     if (bigButton) {
         bigButton.addEventListener('click', add_request);
     }
+    // Tasks list
+    inputElementsEventListenner(inputElements);
+});
+
+// Attach event when the todo list is reloaded from the todo model
+if (todo_reload) {
+    console.log("Yooooooooooooooooooooo !")
+    todo_reload = false;
+
+    var inputElements = document.querySelectorAll("#task-list input[type=text]");
+
+    inputElementsEventListenner(inputElements);
+}
+  
+  
+// Utility functions
+
+function inputElementsEventListenner(inputElements) {
     // Tasks list
     if (inputElements) {
         var enterPressed = false; // initialization
@@ -70,12 +88,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         
     }
-});
-  
-  
-// Utility functions
+}
 
-async function add_request() {
+async function add_request(todo_reload) {
     /* This function request the server to add a new task to the todo model*/
 
     // We retrieve the value in the entry bar
@@ -112,12 +127,15 @@ async function add_request() {
         console.log(data);
 
     }catch(err) {
-        console.log('mdr you suck')
+        console.log('mdr you suck');
         console.error(err);
     }
 
     // Refresh the todolist
     todolist();
+
+    // todo reloaded
+    todo_reload = true;
 }
 
 function getCookie(name) {
@@ -269,12 +287,49 @@ async function update_entry(id) {
     console.log(id);
 
     // we retrieve the task input element
-    let task = document.getElementById(id);
+    let taskname = document.getElementById(id).value;
 
-    console.log(task);
+    // if there is nothing inside the text bar
+    if (taskname == "") {
+        return 0;// we do nothing
+    }
+
+    console.log(taskname);
+
+
+    // retrieving the id number
+    taks_id = id.split("_")[1];
+
+    console.log(taks_id);
 
     // We make a post request
+    try {
+        console.log('updating starts');
+        // Make a POST request to the Django view to create the task
+        const formData = new FormData(); // datastructure needed for the python code in views.py
+        formData.append('taskname', taskname)
 
+        // request
+        const response = await fetch(`update_entry/${taks_id}`, {
+            method: "POST",
+            body: formData,
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            credentials: 'same-origin', // ?
+        });
+
+        // response
+        const data = await response.json();
+        console.log(data);
+
+    }catch(err) {
+        console.log('mdr stop it get some help');
+        console.error(err);
+    }
+
+        // Update html tag
+        get_task(id)
 
 }
 
